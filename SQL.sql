@@ -45,6 +45,7 @@ CREATE TABLE PARTIDA(
 	escalacao_mandante INTEGER,
 	escalacao_visitante INTEGER,
 	id_arbitro INTEGER,
+	data DATE,
 	CONSTRAINT fk_mandante FOREIGN KEY (id_mandante) REFERENCES TIMES(id_time),
 	CONSTRAINT fk_visitante FOREIGN KEY (id_visitante) REFERENCES TIMES(id_time),
 	CONSTRAINT fk_arbitro FOREIGN KEY (id_arbitro) REFERENCES ARBITROS(id_arbitro)
