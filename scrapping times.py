@@ -7,7 +7,7 @@ with sync_playwright() as p:
     
     context = browser.new_context(
     locale="jp-JP",  
-    geolocation={"latitude": 38.71689, "longitude": -9.139705, "accuracy": 100}
+    geolocation={"latitude": -33.86882, "longitude": 151.209296, "accuracy": 100}
     )
 
     campeonato = context.new_page()
@@ -31,10 +31,14 @@ with sync_playwright() as p:
     for q in range(times.count()): #busca o nome e o link dos tenicos de cada time e adiciona na lista
         pag_time = context.new_page()
         pag_time.goto("https://www.sofascore.com" + link_times[q])
+        
+        div_nota = pag_time.locator("xpath=//span[text()='Notas Sofascore']/ancestor::div[contains(@class, 'Box')]/following-sibling::div//span[@role='meter'][@aria-valuenow]")
+        nota_time = div_nota.first.text_content()
+        
         treinador_div = pag_time.locator('text=Treinador').locator('..')  
         link_tecnico = treinador_div.locator('a').get_attribute('href') 
         nome_tecnico = treinador_div.locator('a').inner_text()
-        data_times[q].extend([nome_tecnico, link_tecnico])
+        data_times[q].extend([nome_tecnico, link_tecnico, nota_time])
         pag_time.close()
 
 
