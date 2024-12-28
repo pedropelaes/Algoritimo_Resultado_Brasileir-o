@@ -1,3 +1,5 @@
+import time
+start_time = time.time()
 from playwright.sync_api import sync_playwright
 
 with sync_playwright() as p:
@@ -24,13 +26,27 @@ with sync_playwright() as p:
     for i in range(len(info_times)):
         info_times[i] = str(info_times[i]).split('\n', -1)
 
+    data_times = [times[:5] for times in info_times] #limpa as informações desnecessárias, deixando apenas posição, nome, vitorias, empates e derrotas
+
+    for q in range(times.count()): #busca o nome e o link dos tenicos de cada time e adiciona na lista
+        pag_time = context.new_page()
+        pag_time.goto("https://www.sofascore.com" + link_times[q])
+        treinador_div = pag_time.locator('text=Treinador').locator('..')  
+        link_tecnico = treinador_div.locator('a').get_attribute('href') 
+        nome_tecnico = treinador_div.locator('a').inner_text()
+        data_times[q].extend([nome_tecnico, link_tecnico])
+        pag_time.close()
+
+
     print("Links dos times:\n")
     for i in link_times:
         print(i)
     print("--------------------")
-    print("Informação dos times:\nPos | Nome | Jogos | Vitorias | Empates | Derrotas")
-    for i in info_times:
+    print("Informação dos times:\nPos | Nome | Jogos | Vitorias | Empates | Derrotas\n")
+    for i in data_times:
         print(i)
 
+    end_time = time.time()
+    print(f"Tempo de execução: {end_time - start_time:.2f} segundos")
     campeonato.close()
     browser.close()

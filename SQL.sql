@@ -1,15 +1,3 @@
-CREATE TABLE JOGADORES(
-	id_jogador SERIAL CONSTRAINT pk_jogador PRIMARY KEY,
-	nome VARCHAR(100) NOT NULL,
-	id_time INTEGER,
-	posicao VARCHAR(20) NOT NULL,
-	status VARCHAR(10) NOT NULL,
-	amarelos INTEGER,
-	vermelhos INTEGER,
-	nota NUMERIC(2, 2),
-	CONSTRAINT fk_time FOREIGN KEY (id_time) REFERENCES TIMES(id_time)
-);
-
 CREATE TABLE TECNICOS(
 	id_tecnico SERIAL CONSTRAINT pk_tecnico PRIMARY KEY,
 	nome VARCHAR(100) NOT NULL,
@@ -27,6 +15,18 @@ CREATE TABLE TIMES(
 	derrotas INTEGER,
 	nota NUMERIC(2, 2),
 	CONSTRAINT fk_tecnico FOREIGN KEY (id_tecnico) REFERENCES TECNICOS(id_tecnico)
+);
+
+CREATE TABLE JOGADORES(
+	id_jogador SERIAL CONSTRAINT pk_jogador PRIMARY KEY,
+	nome VARCHAR(100) NOT NULL,
+	id_time INTEGER,
+	posicao VARCHAR(20) NOT NULL,
+	status VARCHAR(10) NOT NULL,
+	amarelos INTEGER,
+	vermelhos INTEGER,
+	nota NUMERIC(2, 2),
+	CONSTRAINT fk_time FOREIGN KEY (id_time) REFERENCES TIMES(id_time)
 );
 
 CREATE TABLE ARBITROS(

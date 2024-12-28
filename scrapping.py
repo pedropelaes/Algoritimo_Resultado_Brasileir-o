@@ -4,7 +4,7 @@ with sync_playwright() as p:
     browser = p.chromium.launch(headless=False, slow_mo=500, args=["--disable-popup-blocking", "--new-window"])
     
     context = browser.new_context(
-    locale="jp-JP",  
+    locale="pt-BR",  
     geolocation={"latitude": 38.71689, "longitude": -9.139705, "accuracy": 100}
     )
 
