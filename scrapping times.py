@@ -34,6 +34,7 @@ with sync_playwright() as p:
         
         div_nota = pag_time.locator("xpath=//span[text()='Notas Sofascore']/ancestor::div[contains(@class, 'Box')]/following-sibling::div//span[@role='meter'][@aria-valuenow]")
         nota_time = div_nota.first.text_content()
+        nota_time = float(nota_time)
         
         treinador_div = pag_time.locator('text=Treinador').locator('..')  
         link_tecnico = treinador_div.locator('a').get_attribute('href') 
